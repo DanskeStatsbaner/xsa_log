@@ -1,7 +1,7 @@
 ﻿$environment = $OctopusParameters["Octopus.Environment.Name"]
 
 # exit if environment is Sandbox (sit)
-# if($environment -eq "sit") { Exit }
+if($environment -eq "sit") { Exit }
 
 write-host "*******************************************************************"
 write-host " START init.ps1"
