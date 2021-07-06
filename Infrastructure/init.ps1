@@ -4,7 +4,7 @@
 if($environment -eq "sit") { Exit }
 
 write-host "*******************************************************************"
-write-host " START afload.ps1"
+write-host " START init.ps1"
 write-host "*******************************************************************"
 
 ###############################################################################
@@ -36,5 +36,5 @@ docker pull artifactory.azure.dsb.dk/docker/xsa_cli_deploy
 docker run -v C:\Octopus\Work:/data --name $containerName --rm -t -d artifactory.azure.dsb.dk/docker/xsa_cli_deploy
 
 write-host "*******************************************************************"
-write-host " STOP afload.ps1"
+write-host " STOP init.ps1"
 write-host "*******************************************************************"
