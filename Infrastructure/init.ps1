@@ -24,15 +24,27 @@ $containerName = "dataArt.$($projectName).$($releaseNumber).$($environment)"
 # Stop and delete containers
 ###############################################################################
 
+write-host "docker prune: $containerName"
+
 if ($(docker container ls -aq -f name="$containerName").length -gt 0){ docker container stop $($containerName) }
 docker container prune -f
+
+write-host "docker prune complete: $containerName" 
 
 ###############################################################################
 # Login to artifactory, pull and start XSA_CLI_DEPLOY container
 ###############################################################################
 
+write-host "login: -u $login -p $artifactoryPW   $registry"
+
 docker login -u $login -p $artifactoryPW   $registry
+
+Write-host "login complete - now pull"
+
 docker pull artifactory.azure.dsb.dk/docker/xsa_cli_deploy
+
+Write-host "pull complete - now run"
+
 docker run -v C:\Octopus\Work:/data --name $containerName --rm -t -d artifactory.azure.dsb.dk/docker/xsa_cli_deploy
 
 write-host "*******************************************************************"
