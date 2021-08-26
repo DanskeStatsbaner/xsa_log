@@ -46,7 +46,15 @@ docker pull artifactory.azure.dsb.dk/docker/xsa_cli_deploy
 
 Write-host "pull complete - now run"
 
-docker run -v C:\Octopus\Work:/data --name $containerName --rm -t -d artifactory.azure.dsb.dk/docker/xsa_cli_deploy
+switch ($environment)
+{
+    "dev" { docker run -v C:\FileBeatLogs\NU0_XSAAppLogs:/data --name $containerName --rm -t -d artifactory.azure.dsb.dk/docker/xsa_cli_deploy; Break}
+    "tst" { docker run -v C:\FileBeatLogs\NT0_XSAAppLogs:/data --name $containerName --rm -t -d artifactory.azure.dsb.dk/docker/xsa_cli_deploy; Break}
+    "prd" { docker run -v C:\FileBeatLogs\NP0_XSAAppLogs:/data --name $containerName --rm -t -d artifactory.azure.dsb.dk/docker/xsa_cli_deploy; Break}
+    Default {
+        Write-host "No hit"
+    }
+}
 
 write-host "*******************************************************************"
 write-host " STOP init.ps1"
